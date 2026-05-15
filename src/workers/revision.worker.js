@@ -44,12 +44,15 @@ self.addEventListener('message', async (event) => {
         self.postMessage({ type: 'PROGRESS', id, payload: progress })
       })
 
-      const prompt = `Fix the grammar and improve the naturalness of this English sentence. Return only the corrected sentence with no explanation:\n${sentence}`
+      const prompt = `Fix the grammar: ${sentence}`
 
       const result = await generator(prompt, {
-        max_new_tokens: 256,
+        max_new_tokens: 128,
         do_sample: false,
         num_beams: 4,
+        no_repeat_ngram_size: 3,
+        repetition_penalty: 1.5,
+        early_stopping: true,
       })
 
       const revised = result[0]?.generated_text ?? sentence
