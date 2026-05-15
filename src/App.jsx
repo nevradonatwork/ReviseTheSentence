@@ -92,8 +92,8 @@ export default function App() {
 
       <footer className="app-footer">
         Powered by&nbsp;
-        <a href="https://huggingface.co/Xenova/flan-t5-small" target="_blank" rel="noreferrer">
-          Xenova/flan-t5-small
+        <a href="https://huggingface.co/Xenova/flan-t5-base" target="_blank" rel="noreferrer">
+          Xenova/flan-t5-base
         </a>
         &nbsp;via Transformers.js — runs entirely in your browser.
       </footer>

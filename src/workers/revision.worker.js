@@ -4,7 +4,7 @@ import { pipeline, env } from '@huggingface/transformers'
 env.allowLocalModels = false
 env.useBrowserCache = true
 
-const MODEL_ID = 'Xenova/flan-t5-small'
+const MODEL_ID = 'Xenova/flan-t5-base'
 const TASK = 'text2text-generation'
 
 let pipe = null
@@ -44,14 +44,16 @@ self.addEventListener('message', async (event) => {
         self.postMessage({ type: 'PROGRESS', id, payload: progress })
       })
 
-      const prompt = `Fix the grammar: ${sentence}`
+      const prompt =
+        `Fix all grammar, spelling, punctuation, and capitalization errors in this sentence. ` +
+        `Keep the original meaning. Output only the corrected sentence:\n${sentence}`
 
       const result = await generator(prompt, {
-        max_new_tokens: 128,
+        max_new_tokens: 200,
         do_sample: false,
-        num_beams: 4,
+        num_beams: 5,
         no_repeat_ngram_size: 3,
-        repetition_penalty: 1.5,
+        repetition_penalty: 1.3,
         early_stopping: true,
       })
 
